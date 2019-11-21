@@ -28,4 +28,4 @@ RUN mkdir /workspace/images
 
 COPY . .
 EXPOSE 80
-# ENTRYPOINT npm start 
+ENTRYPOINT npm start 
