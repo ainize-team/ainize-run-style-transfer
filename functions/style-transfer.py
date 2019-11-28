@@ -62,4 +62,6 @@ output = tensor_to_image(stylized_image)
 output_path = '/workspace/images/' + str(hash(content_path + style_path)) + '.jpg'
 
 output.save(output_path)
+print(content_path)
+print(style_path)
 print(output_path)
