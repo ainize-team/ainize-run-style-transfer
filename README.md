@@ -17,6 +17,10 @@ docker run -t style-transfer
 ```
 http://${host}:80/transfer?base=${baseImageId}&style=${styleImageId}
 ```
+```
+https://style-transfer.hyunhyerim.endpoint.ainize.ai/transfer?base=1X9bbW6hT8kf8vyG-h8EAvdMEmluHfOtC&style=1q7Bj12gKP-GTve9GIBkdRdvUEwrpc4IP
+```
+
 You have to pass id for base and style image.
 
 ### upload image to google drive 
