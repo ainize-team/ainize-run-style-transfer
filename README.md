@@ -25,9 +25,9 @@ You have to pass id for base and style image. This may take a few seconds (~30se
 
 ### upload image to google drive 
 
-For convience, we open public [google drive](https://drive.google.com/drive/folders/1Ou30F1YEa0Wnh6V1gPjSwmxNmobqe_X2) for upload images. 
+For your convience, you can upload your images to public [google drive](https://drive.google.com/drive/folders/1Ou30F1YEa0Wnh6V1gPjSwmxNmobqe_X2) for upload images. 
 
-You can get image id from shareable link.  
+image id can be extracted from shareable link of google drive.
 <img src="/images/guide.png" width="250" />
 <img src="/images/guide2.png" width="250" />
 
