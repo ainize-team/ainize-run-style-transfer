@@ -1,4 +1,3 @@
-
 from flask import Flask, request, send_file
 from flask_limiter import Limiter
 from PIL import Image, ImageOps
