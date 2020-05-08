@@ -14,14 +14,15 @@ import tensorflow_hub as hub
 hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
 
 def load_img(img):
-  max_dim = 512
   byteIO = io.BytesIO()
   img.save(byteIO, format='PNG')
   byteArr = byteIO.getvalue()
+
   img = tf.image.decode_image(byteArr, channels=3)
   img = tf.image.convert_image_dtype(img, tf.float32)
 
   shape = tf.cast(tf.shape(img)[:-1], tf.float32)
+  max_dim = 512
   long_dim = max(shape)
   scale = max_dim / long_dim
 
@@ -34,6 +35,7 @@ def load_img(img):
 def tensor_to_image(tensor):
   tensor = tensor*255
   tensor = np.array(tensor, dtype=np.uint8)
+
   if np.ndim(tensor)>3:
     assert tensor.shape[0] == 1
     tensor = tensor[0]
@@ -57,6 +59,7 @@ def transfer():
     try:
         baseImage = Image.open(request.files['baseImage'].stream)
         styleImage = Image.open(request.files['styleImage'].stream)
+
         if(baseImage.format not in ['JPG', 'JPEG', 'PNG']):
             return { 'error': 'image must be jpg, jpeg or png' }, 400
 
