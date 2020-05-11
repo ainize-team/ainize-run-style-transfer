@@ -53,8 +53,10 @@ limiter = Limiter(
 def transfer():
     ## check isImage
     
-    if not request.files.get('baseImage') : return { 'error': 'must have a baseImage' }, 400
-    if not request.files.get('styleImage') : return { 'error': 'must have a styleImage' }, 400
+    if not request.files.get('baseImage'):
+        return { 'error': 'must have a baseImage' }, 400
+    if not request.files.get('styleImage'):
+        return { 'error': 'must have a styleImage' }, 400
 
     try:
         baseImage = Image.open(request.files['baseImage'].stream)
