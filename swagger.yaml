@@ -12,7 +12,7 @@ info:
     name: "MIT"
     url: ""
 servers:
-  - url: ''
+  - url: 'https://style-transfer-gpu.vyvydkf628.endpoint.ainize.ai'
 
 paths:
   /transfer:
