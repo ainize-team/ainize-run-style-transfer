@@ -82,7 +82,10 @@ def transfer():
 
     except Exception :
         return { 'error': 'can not load your image files. check your image files' }, 400
-    
+
+@app.route('/healthz')
+def health():
+    return "ok"
 
 @app.errorhandler(413)
 def request_entity_too_large(error):
