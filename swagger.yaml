@@ -2,10 +2,12 @@ openapi: 3.0.1
 info:
   title: Ainized-Style-Transfer 
   description:  |
-    # This is an API server that uses deep learning to compose one image in the style of another image
+    ## Style transfer is an optimization technique used to take two images—a content image and a style reference image (such as an artwork by a famous painter)—and blend them together so the output image looks like the content image, but “painted” in the style of the style reference image.
     ---
     How to use:
-      * send base image and style image to ainized style-transfer server
+      * Pick a base image
+      * Pick a style image
+      * Excute and wait until the result shows up
       
   version: 1.0.0
   license:
