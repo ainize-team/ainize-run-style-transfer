@@ -9,11 +9,11 @@ import PIL.Image
 import io
 
 def load_img(img):
-  byteIO = io.BytesIO()
-  img.save(byteIO, format='PNG')
-  byteArr = byteIO.getvalue()
+  byte_io = io.BytesIO()
+  img.save(byte_io, format='PNG')
+  byte_arr = byte_io.getvalue()
 
-  img = tf.image.decode_image(byteArr, channels=3)
+  img = tf.image.decode_image(byte_arr, channels=3)
   img = tf.image.convert_image_dtype(img, tf.float32)
 
   shape = tf.cast(tf.shape(img)[:-1], tf.float32)

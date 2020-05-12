@@ -1,7 +1,7 @@
 from flask import Flask, request, send_file
 from flask_limiter import Limiter
 from PIL import Image, ImageOps
-from imageLoader import load_img, tensor_to_image
+from image_loader import load_img, tensor_to_image
 
 import tensorflow as tf
 import tensorflow_hub as hub
@@ -18,25 +18,25 @@ limiter = Limiter(
 
 @app.route('/transfer', methods=['POST'])
 def transfer():
-  if not request.files.get('baseImage'):
-    return {'error': 'must have a baseImage'}, 400
-  if not request.files.get('styleImage'):
-    return {'error': 'must have a styleImage'}, 400
+  if not request.files.get('base_image'):
+    return {'error': 'must have a base image'}, 400
+  if not request.files.get('style_image'):
+    return {'error': 'must have a style image'}, 400
 
   try:
-    baseImage = Image.open(request.files['baseImage'].stream)
-    styleImage = Image.open(request.files['styleImage'].stream)
+    base_image = Image.open(request.files['base_image'].stream)
+    style_image = Image.open(request.files['style_image'].stream)
 
-    if(baseImage.format not in ['JPG', 'JPEG', 'PNG']):
+    if(base_image.format not in ['JPG', 'JPEG', 'PNG']):
       return {'error': 'image must be jpg, jpeg or png'}, 400
 
-    if(styleImage.format not in ['JPG', 'JPEG', 'PNG']):
+    if(style_image.format not in ['JPG', 'JPEG', 'PNG']):
       return {'error': 'image must be jpg, jpeg or png'}, 400
 
-    baseImage = load_img(baseImage)
-    styleImage = load_img(styleImage)
+    base_image = load_img(base_image)
+    style_image = load_img(style_image)
 
-    stylized_image = hub_module(tf.constant(baseImage), tf.constant(styleImage))[0]
+    stylized_image = hub_module(tf.constant(base_image), tf.constant(style_image))[0]
 
     output = tensor_to_image(stylized_image)
 
