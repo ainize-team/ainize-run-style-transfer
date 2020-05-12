@@ -1,45 +1,12 @@
 from flask import Flask, request, send_file
 from flask_limiter import Limiter
 from PIL import Image, ImageOps
-import numpy as np
+from imageLoader import load_img, tensor_to_image
 
 import tensorflow as tf
-import tensorflow.keras
-
-import numpy as np
-import PIL.Image
-import io
 import tensorflow_hub as hub
 
 hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
-
-def load_img(img):
-    byteIO = io.BytesIO()
-    img.save(byteIO, format='PNG')
-    byteArr = byteIO.getvalue()
-
-    img = tf.image.decode_image(byteArr, channels=3)
-    img = tf.image.convert_image_dtype(img, tf.float32)
-
-    shape = tf.cast(tf.shape(img)[:-1], tf.float32)
-    max_dim = 512
-    long_dim = max(shape)
-    scale = max_dim / long_dim
-
-    new_shape = tf.cast(shape * scale, tf.int32)
-
-    img = tf.image.resize(img, new_shape)
-    img = img[tf.newaxis, :]
-    return img
-
-def tensor_to_image(tensor):
-    tensor = tensor*255
-    tensor = np.array(tensor, dtype=np.uint8)
-
-    if np.ndim(tensor) > 3:
-        assert tensor.shape[0] == 1
-        tensor = tensor[0]
-    return PIL.Image.fromarray(tensor)
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 8
@@ -49,10 +16,8 @@ limiter = Limiter(
     default_limits=['1 per second']
 )
 
-
 @app.route('/transfer', methods=['POST'])
 def transfer():
-    # check isImage
     if not request.files.get('baseImage'):
         return {'error': 'must have a baseImage'}, 400
     if not request.files.get('styleImage'):
@@ -76,11 +41,7 @@ def transfer():
 
         output = tensor_to_image(stylized_image)
 
-        img_io = io.BytesIO()
-        output.save(img_io, 'JPEG', quality=70)
-        img_io.seek(0)
-        return send_file(img_io, mimetype='image/png')
-
+        return send_file(output, mimetype='image/png')
     except Exception:
         return {'error': 'can not load your image files. check your image files'}, 400
 
