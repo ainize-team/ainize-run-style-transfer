@@ -1,14 +1,9 @@
 from PIL import Image, ImageOps
 import numpy as np
-
-import tensorflow as tf
-import tensorflow.keras
-
-import numpy as np
-import PIL.Image
 import io
 
 import tensorflow as tf
+import tensorflow.keras
 import tensorflow_hub as hub
 
 hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
@@ -40,7 +35,7 @@ def tensor_to_img(tensor):
     assert tensor.shape[0] == 1
     tensor = tensor[0]
   
-  output = PIL.Image.fromarray(tensor)
+  output = Image.fromarray(tensor)
   img_io = io.BytesIO()
   output.save(img_io, 'PNG', quality=70)
   img_io.seek(0)
