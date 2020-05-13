@@ -21,4 +21,4 @@ RUN mkdir /workspace/images
 RUN pip3 install flask Flask-Limiter
 COPY . .
 EXPOSE 80
-ENTRYPOINT python app.py
+ENTRYPOINT python ./src/app.py
