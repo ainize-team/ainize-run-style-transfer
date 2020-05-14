@@ -2,17 +2,17 @@ from flask import Flask, request, send_file
 from flask_limiter import Limiter
 from PIL import Image, ImageOps
 from style_transfer import stylize_img
+from ga import track_event
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 8
 
-limiter = Limiter(
-  app,
-  default_limits=['1 per second']
-)
+limiter = Limiter(app, default_limits=['1 per second'])
 
 @app.route('/transfer', methods=['POST'])
 def transfer():
+  track_event(category='Style_Transfer', action='transfer')
+
   if not request.files.get('base_image'):
     return {'error': 'must have a base image'}, 400
 
