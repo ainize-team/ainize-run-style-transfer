@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Swagger UI</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/swagger-ui.css" >
+  <style>
+    html
+    {
+      box-sizing: border-box;
+      overflow: -moz-scrollbars-vertical;
+      overflow-y: scroll;
+    }
+    *,
+    *:before,
+    *:after
+    {
+      box-sizing: inherit;
+    }
+    body {
+      margin:0;
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+<div id="swagger-ui"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/swagger-ui-bundle.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/swagger-ui-standalone-preset.js"> </script>
+<script>
+window.onload = function() {
+  var spec = {"openapi": "3.0.1", "info": {"title": "Ainized-Style-Transfer", "description": "## Style transfer is an optimization technique used to take two images\u2014a content image and a style reference image (such as an artwork by a famous painter)\u2014and blend them together so the output image looks like the content image, but \u201cpainted\u201d in the style of the style reference image.\n---\nHow to use:\n  * Pick a base image\n  * Pick a style image\n  * Excute and wait until the result shows up\n  \n", "version": "1.0.0", "license": {"name": "MIT", "url": ""}}, "servers": [{"url": "http://localhost:80"}], "paths": {"/transfer": {"post": {"tags": ["Style-transfer"], "requestBody": {"required": true, "description": "send base and style images \n \n [sample base image](https://storage.googleapis.com/download.tensorflow.org/example_images/YellowLabradorLooking_new.jpg) \n \n [sample style image](https://storage.googleapis.com/download.tensorflow.org/example_images/Vassily_Kandinsky%2C_1913_-_Composition_7.jpg)", "content": {"multipart/form-data": {"schema": {"type": "object", "properties": {"base_image": {"type": "string", "format": "binary"}, "style_image": {"type": "string", "format": "binary"}}}, "encoding": {"files": {"contentType": "image/*"}}}}}, "responses": {"200": {"description": "success", "content": {"images/*": {"schema": {"type": "string", "format": "binary"}}}}, "400": {"description": "Bad request (Can not load images)"}, "500": {"description": "Server Side Error"}}}}}};
+  // Build a system
+  const ui = SwaggerUIBundle({
+    spec: spec,
+    dom_id: '#swagger-ui',
+    deepLinking: true,
+    presets: [
+      SwaggerUIBundle.presets.apis,
+      SwaggerUIStandalonePreset
+    ],
+    plugins: [
+      SwaggerUIBundle.plugins.DownloadUrl
+    ],
+    layout: "StandaloneLayout"
+  })
+  window.ui = ui
+}
+</script>
+</body>
+</html>
