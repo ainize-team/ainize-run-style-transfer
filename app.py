@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, render_template
 from flask_limiter import Limiter
 from PIL import Image, ImageOps
 from style_transfer import stylize_img
@@ -34,6 +34,10 @@ def transfer():
     return send_file(stylized_image, mimetype='image/png')
   except Exception:
     return {'error': 'can not load your image files. check your image files'}, 400
+
+@app.route('/local/test')
+def test():
+  return render_template('test.html', name='Test Page')
 
 @app.route('/healthz')
 def health():
