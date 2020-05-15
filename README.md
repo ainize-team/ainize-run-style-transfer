@@ -1,6 +1,6 @@
 # Ainize-run-style-transfer
 
-[![Run on Ainize](https://ainize.ai/static/images/run_on_ainize_button.svg)](https://ainize.ai/hyunhyerim/style-transfer)
+[![Run on Ainize](https://ainize.ai/static/images/run_on_ainize_button.svg)](https://www.ainize.ai/vyvydkf628/style-transfer-gpu)
 
 ## Docker build
 ```
@@ -13,23 +13,19 @@ docker run -t style-transfer
 ```
 
 
-## How to request using https
+## How to request using cURL
+
+First of all, you should download [sample-base-image.jpg](https://github.com/ainize-team/ainize-run-style-transfer/blob/master/images/sample-base-image.jpg) and [sample-style-image.jpg](https://github.com/ainize-team/ainize-run-style-transfer/blob/master/images/sample-style-image.jpg).
+
+1. Try on ainized [sample service](https://www.ainize.ai/vyvydkf628/style-transfer-gpu)
 ```
-http://${host}:80/transfer?base=${baseImageId}&style=${styleImageId}
-```
-```
-https://style-transfer.hyunhyerim.endpoint.ainize.ai/transfer?base=1X9bbW6hT8kf8vyG-h8EAvdMEmluHfOtC&style=1q7Bj12gKP-GTve9GIBkdRdvUEwrpc4IP
+curl -X POST "https://style-transfer-gpu.vyvydkf628.endpoint.ainize.ai/transfer" -H "accept: images/*" -H "Content-Type: multipart/form-data" -F "base_image=@sample-base-image.jpg;type=image/jpeg" -F "style_image=@sample-style-image.jpg;type=image/jpeg" -o result.jpg
 ```
 
-You have to pass id for base and style image. This may take a few seconds (~30sec).
-
-### upload image to google drive 
-
-For your convience, you can upload your images to public [google drive](https://drive.google.com/drive/folders/1Ou30F1YEa0Wnh6V1gPjSwmxNmobqe_X2) for upload images. 
-
-image id can be extracted from the shareable link of google drive.
-<img src="/images/guide.png" width="250" />
-<img src="/images/guide2.png" width="250" />
+2. Try on your localhost
+```
+curl -X POST "http://localhost:80/transfer" -H "accept: images/*" -H "Content-Type: multipart/form-data" -F "base_image=@sample-base-image.jpg;type=image/jpeg" -F "style_image=@sample-style-image.jpg;type=image/jpeg" -o localhost-result.jpg
+```
 
 ## References
 1. [Neural style transfer](https://www.tensorflow.org/tutorials/generative/style_transfer)
