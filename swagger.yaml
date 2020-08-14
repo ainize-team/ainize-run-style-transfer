@@ -14,7 +14,7 @@ info:
     name: "MIT"
     url: ""
 servers:
-  - url: 'https://style-transfer-gpu.vyvydkf628.endpoint.ainize.ai'
+  - url: 'https://master-ainize-run-style-transfer-ainize-team.endpoint.ainize.ai'
 
 paths:
   /transfer:
